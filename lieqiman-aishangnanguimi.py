@@ -32,8 +32,8 @@ def download(url,filename):
         if count > 5:
             print("downloading picture fialed!")
 
-
-
+#爱上男闺蜜
+#漫画《爱上男闺蜜》讲述十五年來的好友关系，即使喜欢也要强忍着冲动，但是这份感情卻在一夕间变了质，该用什么关系看待她呢...... 【作者：龟足】
 if __name__ == '__main__':
     list_url = []
     base_folder ='F:/py3project/91hanman/'
