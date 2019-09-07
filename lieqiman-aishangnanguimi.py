@@ -38,8 +38,21 @@ if __name__ == '__main__':
     list_url = []
     base_folder ='F:/py3project/91hanman/'
     base_url='https://lieqiman.com'
-    base_manga_name='aishangnanguimi'
-    base_log=base_folder+base_manga_name+".txt"
+    #定义一组
+    manhua_list=['tongshifangke=/mh/xe/147.html','furendeliwu=/mh/xe/142.html']
+    print(len(manhua_list))
+    for each_manhua_list in manhua_list:
+        each_manhua_list_info = each_manhua_list.split('=')
+        base_manga_name=each_manhua_list_info[0]
+        base_log=base_folder+base_manga_name+".txt"
+        url = base_url+each_manhua_list_info[1]
+        print(base_manga_name)
+        print(url)
+    exit()
+
+    # base_manga_name='aishangnanguimi'
+    # base_log=base_folder+base_manga_name+".txt"
+    # url = base_url+'/mh/xe/20.html'
     if base_manga_name not in os.listdir():
          os.makedirs(base_manga_name)
     for num in range(1,2):
@@ -48,7 +61,7 @@ if __name__ == '__main__':
         # else:
         #     url = 'http://www.shuaia.net/index_%d.html' % num
         #TODO:
-        url = base_url+'/mh/xe/20.html'
+        #url = base_url+'/mh/xe/20.html'
         headers = {
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
         }
