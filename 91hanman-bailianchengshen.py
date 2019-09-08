@@ -11,6 +11,7 @@ def loglist(file,data):
     f = open(file,'a')
     f.write(data+"\n")
     f.close()
+
 def download(url,filename):
     socket.setdefaulttimeout(60)
     #pdb.set_trace() # 运行到这里会自动暂停
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     list_url = []
     base_folder ='F:/py3project/91hanman/'
     base_url='https://www.91hanman.com'
-    base_manga_name='woweichangsheng'
+    base_manga_name='bailianchengshen'
     base_log=base_folder+base_manga_name+".txt"
     if base_manga_name not in os.listdir():
          os.makedirs(base_manga_name)
@@ -44,7 +45,7 @@ if __name__ == '__main__':
         # else:
         #     url = 'http://www.shuaia.net/index_%d.html' % num
         #TODO:
-        url = base_url+'/book/webBookDetail/76'
+        url = base_url+'/book/webBookDetail/47'
         headers = {
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
         }
@@ -74,9 +75,9 @@ if __name__ == '__main__':
     for each_img in list_url:
         #pdb.set_trace()
         count +=1        
-        if(count <= 379):
-            print(count)
-            continue
+        # if(count <= 37):
+        #     print(count)
+        #     continue
         folder=base_folder+base_manga_name+'/'+str(count)
         #pdb.set_trace()
         print(os.path.exists(folder));
