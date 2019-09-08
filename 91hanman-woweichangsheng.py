@@ -28,6 +28,8 @@ def download(url,filename):
                 count += 1
         if count > 5:
             print("downloading picture fialed!")
+    except:
+        print('捕捉到其他异常')
 
 
 if __name__ == '__main__':

@@ -37,7 +37,7 @@ if __name__ == '__main__':
     list_url = []
     base_folder ='F:/py3project/91hanman/'
     base_url='https://www.91hanman.com'
-    base_manga_name='bailianchengshen'
+    base_manga_name='yirenzhixia'
     base_log=base_folder+base_manga_name+".txt"
     if base_manga_name not in os.listdir():
          os.makedirs(base_manga_name)
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         # else:
         #     url = 'http://www.shuaia.net/index_%d.html' % num
         #TODO:
-        url = base_url+'/book/webBookDetail/47'
+        url = base_url+'/book/webBookDetail/51'
         headers = {
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
         }

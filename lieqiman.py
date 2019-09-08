@@ -31,55 +31,86 @@ def download(url,filename):
                 count += 1
         if count > 5:
             print("downloading picture fialed!")
+    except:
+        print('捕捉到其他异常')
 
 #爱上男闺蜜
 #漫画《爱上男闺蜜》讲述十五年來的好友关系，即使喜欢也要强忍着冲动，但是这份感情卻在一夕间变了质，该用什么关系看待她呢...... 【作者：龟足】
 if __name__ == '__main__':
-    list_url = []
+    
     base_folder ='F:/py3project/91hanman/'
     base_url='https://lieqiman.com'
     #定义一组
-    manhua_list=['tongshifangke=/mh/xe/147.html','furendeliwu=/mh/xe/142.html','zhengrongzhen=/mh/xe/119.html','dianjishaonian=/mh/xe/118.html','maopaihuizhang=/mh/xe/82.html']
+    manhua_list=['jiaxizhenzuo=/mh/xe/7.html','xiaoyizidemimi=/mh/xe/8.html','shuzuiying=/mh/xe/9.html','shenyebianlidian=/mh/xe/10.html','keaidejiahuo=/mh/xe/11.html']
+    print(len(manhua_list))
     print(len(manhua_list))
     for each_manhua_list in manhua_list:
+        list_url = []
         each_manhua_list_info = each_manhua_list.split('=')
         base_manga_name=each_manhua_list_info[0]
         base_log=base_folder+base_manga_name+".txt"
         url = base_url+each_manhua_list_info[1]
         print(base_manga_name)
-        print(url)
+        print(url)   
+
         # base_manga_name='aishangnanguimi'
         # base_log=base_folder+base_manga_name+".txt"
         # url = base_url+'/mh/xe/20.html'
         if base_manga_name not in os.listdir():
              os.makedirs(base_manga_name)
-        for num in range(1,2):
-            # if num == 1:
-            #     url = 'view-source:https://www.91hanman.com/book/webBookDetail/69'
-            # else:
-            #     url = 'http://www.shuaia.net/index_%d.html' % num
-            #TODO:
-            #url = base_url+'/mh/xe/20.html'
-            headers = {
-                    "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
-            }
-            ssl._create_default_https_context = ssl._create_unverified_context
-            req = requests.get(url = url,headers = headers,verify=False)
-            req.encoding = 'gbk'
-            html = req.text
-            bf = BeautifulSoup(html, 'lxml')
-            targets_url = bf.find_all('div',class_='sections')
-            for each_url in targets_url:
-                #pdb.set_trace() # 运行到这里会自动暂停
-                bf_2 = BeautifulSoup(str(each_url), 'lxml')
-                [s.extract() for s in bf_2("p")]#去除指定标签
-                targets_url_2 = bf_2.find_all('a')
-                for each_url_2 in targets_url_2:
-                    print(each_url_2.get('href'))
-                    print(each_url_2.get_text())
-                    #pdb.set_trace()
-                    loglist(base_log,each_url_2.get_text() + '=' + base_url +each_url_2.get('href'))
-                    list_url.append(each_url_2.get_text() + '=' + base_url +each_url_2.get('href'))
+        # if num == 1:
+        #     url = 'view-source:https://www.91hanman.com/book/webBookDetail/69'
+        # else:
+        #     url = 'http://www.shuaia.net/index_%d.html' % num
+        #TODO:
+        #url = base_url+'/mh/xe/20.html'
+        headers = {
+                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+        }
+        ssl._create_default_https_context = ssl._create_unverified_context
+        req = requests.get(url = url,headers = headers,verify=False)
+        req.encoding = 'gbk'
+        html = req.text
+        #过滤空格
+        html=html.replace('&nbsp;', '')
+        bf = BeautifulSoup(html, 'lxml')
+
+        #简介
+        about = bf.find_all('div',class_='wikicon')
+        about_2 = BeautifulSoup(str(about), 'lxml')
+        [s.extract() for s in about_2("a")]#去除指定标签
+        [s.extract() for s in about_2("strong")]#去除指定标签
+        #pdb.set_trace()
+        about_3 = about_2.find_all('p')
+        #print(str(about_3).encode('utf-8'))
+        #print(len(about_3))
+        #pdb.set_trace()
+        #print(about_2.original_encoding)
+        c=0
+        for each_about_3 in about_3:
+            # c+=1
+            # print(c)
+            # print(each_about_3.get_text())
+            # print(type(each_about_3.get_text()))
+            print(each_about_3.get_text().strip()=='')
+            if each_about_3.get_text().strip()=='':
+                continue
+            print(each_about_3.get_text())
+            loglist(base_log,'简介:'+each_about_3.get_text())
+        #exit();
+        #列表
+        targets_url = bf.find_all('div',class_='sections')
+        for each_url in targets_url:
+            #pdb.set_trace() # 运行到这里会自动暂停
+            bf_2 = BeautifulSoup(str(each_url), 'lxml')
+            [s.extract() for s in bf_2("p")]#去除指定标签
+            targets_url_2 = bf_2.find_all('a')
+            for each_url_2 in targets_url_2:
+                print(each_url_2.get('href'))
+                print(each_url_2.get_text())
+                #pdb.set_trace()
+                loglist(base_log,each_url_2.get_text() + '=' + base_url +each_url_2.get('href'))
+                list_url.append(each_url_2.get_text() + '=' + base_url +each_url_2.get('href'))
 
             #pdb.set_trace() # 运行到这里会自动暂停
 
