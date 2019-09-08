@@ -54,6 +54,7 @@ if __name__ == '__main__':
         req = requests.get(url = url,headers = headers)
         req.encoding = 'utf-8'
         html = req.text
+        html=html.replace('•', '')
         bf = BeautifulSoup(html, 'lxml')
         targets_url = bf.find_all(class_='detail-chapters-list-item')
         for each_url in targets_url:
