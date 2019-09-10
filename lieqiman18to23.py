@@ -15,7 +15,7 @@ if __name__ == '__main__':
     base_folder ='F:/py3workspace/python-spider/'#以/结束
     base_url='https://lieqiman.com'
     #定义一组
-    manhua_list=['linjiashaonv=/mh/xe/18.html','chouwen=/mh/xe/19.html','qinglvyouxi=/mh/xe/21.html','shunvhuayuan=/mh/xe/22.html','fuqiannv=/mh/xe/23.html']
+    manhua_list=['buyaopengwo=/mh/xe/37.html','chouwen=/mh/xe/19.html','qinglvyouxi=/mh/xe/21.html','shunvhuayuan=/mh/xe/22.html','fuqiannv=/mh/xe/23.html']
     print(len(manhua_list))
     print(len(manhua_list))
     for each_manhua_list in manhua_list:
@@ -39,7 +39,8 @@ if __name__ == '__main__':
         #TODO:
         #url = base_url+'/mh/xe/20.html'
         headers = {
-                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+                "Referer": "http://www.google.com/bot.html"
         }
         ssl._create_default_https_context = ssl._create_unverified_context
         req = requests.get(url = url,headers = headers,verify=False)
@@ -114,7 +115,8 @@ if __name__ == '__main__':
             filename = img_info[0]
             print('下载：' + filename)
             headers = {
-                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+                "Referer": "http://www.google.com/bot.html"
             }
             img_req = requests.get(url = target_url,headers = headers,verify=False)
             img_req.encoding = 'utf-8'
