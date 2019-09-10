@@ -17,7 +17,9 @@ import time
 
         
 
-BaseCommon.download(url="http://www.abcaa.com/a/1739/2/1.",filename="1.jpg")
-time.sleep(1)            
-print('ok!!!')
-
+# BaseCommon.download(url="http://www.abcaa.com/a/1739/2/1.",filename="1.jpg")
+# time.sleep(1)            
+# print('ok!!!')
+for index in range(10):
+    index+=10
+    print(index)

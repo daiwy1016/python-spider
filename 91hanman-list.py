@@ -39,9 +39,9 @@ if __name__ == '__main__':
     list_url = []
     base_folder ='F:/py3project/91hanman/'
     base_url='https://www.91hanman.com'
-    for index in range(400):
+    for index in range(600):
         #url=base_url+'/mh/xe/'+str(index)+'.html'
-        index+=1
+        index+=387
         url=base_url+'/book/webBookDetail/'+str(index)#https://www.91hanman.com/book/webBookDetail/270
         print(str(index)+base_url)
         #url=base_url+'/mh/xe/1.html'
