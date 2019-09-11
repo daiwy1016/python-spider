@@ -94,7 +94,7 @@ if __name__ == '__main__':
                 "Referer": "http://www.google.com/bot.html"
         }
         #网页下载太长 需要加入参数 stream=True 来判断完整性下载
-        req = requests.get(url = url,headers = headers,stream=True)
+        req = requests.get(url = url,headers = headers,stream=True,verify=False)
         req.encoding = 'utf-8'
         html = req.text
         bf = BeautifulSoup(html, 'lxml')
@@ -108,7 +108,7 @@ if __name__ == '__main__':
             chaptername_1=chaptername.encode('GBK','ignore')
             chaptername_2=chaptername_1.decode('GBK')
             print(chaptername_2)
-            
+
             BaseCommon.loglist(base_log,chaptername_2 + '=' + base_url +bf_2.a.get('href'))
             list_url.append(chaptername_2 + '=' + base_url +bf_2.a.get('href'))
 
@@ -151,7 +151,7 @@ if __name__ == '__main__':
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
                 "Referer": "http://www.google.com/bot.html"
             }
-            img_req = requests.get(url = target_url,headers = headers)
+            img_req = requests.get(url = target_url,headers = headers,stream=True,verify=False)
             img_req.encoding = 'utf-8'
             img_html = img_req.text
             img_bf_1 = BeautifulSoup(img_html, 'lxml')
