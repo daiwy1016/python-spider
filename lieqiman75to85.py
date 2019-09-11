@@ -12,12 +12,25 @@ from python_lib import BaseCommon
 
 if __name__ == '__main__':
 
-    base_folder ='F:/py3project/91hanman/'#以/结束
+    #base_folder ='F:/py3project/91hanman/'#以/结束 home
+    base_folder ='F:/py3workspace/python-spider/'#以/结束 company
     base_url='https://lieqiman.com'
     #定义一组
-    manhua_list=['pingheng=/mh/xe/24.html','newface=/mh/xe/25.html','duoluoyouxi=/mh/xe/26.html','ouran=/mh/xe/27.html','weixiantongju=/mh/xe/28.html']
+    manhua_list=[]
+    manhua_list.append('daxueshiyou=/mh/xe/75.html')
+    manhua_list.append('chongfanquantan=/mh/xe/76.html')
+    manhua_list.append('jieyouzhentanshe=/mh/xe/77.html')
+    manhua_list.append('fanchaqinglv=/mh/xe/78.html')
+    manhua_list.append('geqiangsuoai=/mh/xe/79.html')
+    manhua_list.append('hongseyinji=/mh/xe/80.html')
+    manhua_list.append('jinpaizuoqujia=/mh/xe/81.html')
+    manhua_list.append('maopaihuizhang=/mh/xe/82.html')
+    manhua_list.append('yaotaodianzhang=/mh/xe/83.html')
+    manhua_list.append('buliangfangdong=/mh/xe/84.html')
+    manhua_list.append('shuangchongzhangfu=/mh/xe/85.html')
+    print(manhua_list)
     print(len(manhua_list))
-    print(len(manhua_list))
+    #exit()
     for each_manhua_list in manhua_list:
         list_url = []
         each_manhua_list_info = each_manhua_list.split('=')
@@ -39,7 +52,8 @@ if __name__ == '__main__':
         #TODO:
         #url = base_url+'/mh/xe/20.html'
         headers = {
-                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+                "Referer": "http://www.google.com/bot.html"
         }
         ssl._create_default_https_context = ssl._create_unverified_context
         req = requests.get(url = url,headers = headers,verify=False)
@@ -114,7 +128,8 @@ if __name__ == '__main__':
             filename = img_info[0]
             print('下载：' + filename)
             headers = {
-                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+                "Referer": "http://www.google.com/bot.html"
             }
             img_req = requests.get(url = target_url,headers = headers,verify=False)
             img_req.encoding = 'utf-8'
@@ -141,4 +156,4 @@ if __name__ == '__main__':
                     time.sleep(1)
 
     print('下载完成！')
-    os.system('shutdown -s -f -t 59')
+    #os.system('shutdown -s -f -t 59')

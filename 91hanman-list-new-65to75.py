@@ -11,15 +11,15 @@ from python_lib import BaseCommon
 
 
 if __name__ == '__main__':
-    base_folder ='F:/py3project/91hanman/'#以/结束
-    #base_folder ='F:/py3workspace/python-spider/'#以/结束
+    #base_folder ='F:/py3project/91hanman/'#以/结束
+    base_folder ='F:/py3workspace/python-spider/'#以/结束
     base_url='https://www.91hanman.com'
     manhua_list=[]
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/60=过人')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/61=从今天开始当城主')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/62=影帝X影帝')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/63=快意十三刀')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/64=废柴特工')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/65=驱魔录')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/67=最后的召唤师')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/70=妖怪通缉')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/71=蛊真人')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/75=妖道至尊')
     print(manhua_list)
     for each_manhua_list in manhua_list:
         list_url = []

@@ -12,8 +12,8 @@ from python_lib import BaseCommon
 
 if __name__ == '__main__':
 
-    base_folder ='F:/py3project/91hanman/'#以/结束
-    #base_folder ='F:/py3workspace/python-spider/'#以/结束
+    base_folder ='F:/py3project/91hanman/'#以/结束 home
+    #base_folder ='F:/py3workspace/python-spider/'#以/结束 company
     base_url='https://lieqiman.com'
     #定义一组
     manhua_list=['mihuoshitu=/mh/xe/70.html','nvzhuangshejishi=/mh/xe/71.html','zhengjiuzhainan=/mh/xe/72.html','zhenshidebiaoyan=/mh/xe/73.html','wanjialeyuan=/mh/xe/74.html']
