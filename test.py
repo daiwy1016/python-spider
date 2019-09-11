@@ -16,6 +16,9 @@ from urllib import request
 from bs4 import BeautifulSoup
 import sys
 import io
+import os
+
+import configparser
 
 
 
@@ -24,6 +27,39 @@ def loglist(file,data):
     #
     f.write(data+"\n")
     f.close()
+
+
+# print(sys.argv[0][sys.argv[0].rfind(os.sep) + 1:-3])
+# i=0
+# for each_i in range(10):
+#     i+=1
+#     if i<5:
+#         #print(i)
+#         continue
+#     print(i)
+# exit()
+# s="1"
+# i=int(s)
+
+# print(type(i))
+# exit()
+#ConfigParser 初始化对象
+config = configparser.ConfigParser()
+config.read("config.ini", encoding="GBK")
+
+mangacount=config.get("currentManga", "mangacount")
+print(mangacount)
+config.set("currentChapter", "chaptercount", "69")  #修改db_port的值为69
+config.write(open("config.ini", "w"))
+
+print(os.getcwd())
+
+
+
+print(config.has_option("currentChapter", "chaptercount") )
+exit()
+
+
 # url='https://www.91hanman.com/page/get/68/414/false'
 # headers = {
 #                     "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"

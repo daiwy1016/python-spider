@@ -76,9 +76,10 @@ if __name__ == '__main__':
     for each_img in list_url:
         #pdb.set_trace()
         count +=1        
-        if(count <= 379):
+        if(count <= 418):
             print(count)
             continue
+        
         folder=base_folder+base_manga_name+'/'+str(count)
         #pdb.set_trace()
         print(os.path.exists(folder));
@@ -89,6 +90,7 @@ if __name__ == '__main__':
         img_info = each_img.split('=')
         target_url = img_info[1]
         filename = img_info[0]
+        loglist(base_log,filename + '=' + target_url)
         print(str(count)+'下载：' + filename)
         headers = {
             "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"

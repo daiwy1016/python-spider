@@ -16,9 +16,21 @@ if __name__ == '__main__':
     #base_folder ='F:/py3workspace/python-spider/'#以/结束 company
     base_url='https://lieqiman.com'
     #定义一组
-    manhua_list=['mihuoshitu=/mh/xe/70.html','nvzhuangshejishi=/mh/xe/71.html','zhengjiuzhainan=/mh/xe/72.html','zhenshidebiaoyan=/mh/xe/73.html','wanjialeyuan=/mh/xe/74.html']
+    manhua_list=[]
+    manhua_list.append('yingzhaoxiansheng=/mh/xe/86.html')
+    manhua_list.append('xunzhaomeili=/mh/xe/87.html')
+    manhua_list.append('baogaoxuezhang=/mh/xe/88.html')
+    manhua_list.append('shenmibaoguo=/mh/xe/89.html')
+    manhua_list.append('tieshenjiaolian=/mh/xe/90.html')
+    manhua_list.append('mimounannv=/mh/xe/91.html')
+    manhua_list.append('bianshenlingyao=/mh/xe/92.html')
+    manhua_list.append('emengqiyue=/mh/xe/93.html')
+    manhua_list.append('chonghui20sui=/mh/xe/94.html')
+    manhua_list.append('huangdaoqiuyuan=/mh/xe/95.html')
+    manhua_list.append('shixixiaozhiyuan=/mh/xe/96.html')
+    print(manhua_list)
     print(len(manhua_list))
-    print(len(manhua_list))
+    #exit()
     for each_manhua_list in manhua_list:
         list_url = []
         each_manhua_list_info = each_manhua_list.split('=')
@@ -27,11 +39,7 @@ if __name__ == '__main__':
         url = base_url+each_manhua_list_info[1]
         print(base_manga_name)
         print(url)
-        status_count=0
-        if base_manga_name=='mihuoshitu':
-            status_count=40
-        print(status_count)
-        #pdb.set_trace()
+
         # base_manga_name='aishangnanguimi'
         # base_log=base_folder+base_manga_name+".txt"
         # url = base_url+'/mh/xe/20.html'
@@ -101,14 +109,14 @@ if __name__ == '__main__':
         print(list_url)
         print(len(list_url))
 
-        count=0        
+        count=0
         for each_img in list_url:
             #pdb.set_trace()
             count +=1
-            if(count <= status_count):
-                print(count)
-                continue
-            
+            # if(count <= 63):
+            #     print(count)
+            #     continue
+
             folder=base_folder+base_manga_name+'/'+str(count)
             #pdb.set_trace()
             print(os.path.exists(folder));
@@ -147,6 +155,7 @@ if __name__ == '__main__':
                 if os.path.exists(folder+"/"+str(i).zfill(2) + '.jpg') ==  False:
                     BaseCommon.download(url = img_url,filename = folder+"/"+str(i).zfill(2) + '.jpg')
                     time.sleep(1)
-
+                else:
+                    print('图片已存在跳过'+str(i))
     print('下载完成！')
-    #os.system('shutdown -s -f -t 59')
+    os.system('shutdown -s -f -t 59')

@@ -6,22 +6,48 @@ import os
 import time
 import pdb
 import socket
+import configparser
+import sys
 
 from python_lib import BaseCommon
 
 
 if __name__ == '__main__':
-    base_folder ='F:/py3project/91hanman/'#以/结束
+    #base_folder ='F:/py3project/91hanman/'#以/结束
     #base_folder ='F:/py3workspace/python-spider/'#以/结束
+    base_folder = os.getcwd()+"\\"
     base_url='https://www.91hanman.com'
+    base_config_file=base_folder+'\\'+sys.argv[0][sys.argv[0].rfind(os.sep) + 1:-3]+'.ini'
+    #判断配置文件是否存在 不存在建立
+    if os.path.exists(base_config_file) ==  False:
+        BaseCommon.loglist(base_config_file,"")
+        #BaseCommon.loglist(base_config_file,"[currentManga]"+"\n"+"mangacount = 0"+"\n"+"[currentChapter]"+"\n"+"chaptercount = 0"+"\n")
+    
+    print(base_config_file)
+    
     manhua_list=[]
-    #manhua_list.append('https://www.91hanman.com/book/webBookDetail/60=过人')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/61=从今天开始当城主')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/62=影帝X影帝')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/63=快意十三刀')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/64=废柴特工')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/77=斗罗大陆4终极斗罗')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/425=英雄再临')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/556=铁姬钢兵')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/260=百层塔')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/265=尸兄')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/269=东邻西厢')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/270=玄界之门')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/287=传武')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/311=重生之都市修仙')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/328=朕也不想这样')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/331=武炼巅峰')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/332=王牌御史')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/407=驭灵师')
     print(manhua_list)
+    manhua_list_count=0
+    #ConfigParser 初始化对象
+    config = configparser.ConfigParser()
+    config.read(base_config_file, encoding="GBK")
+
     for each_manhua_list in manhua_list:
+        manhua_list_count +=1
+
         list_url = []
         each_manhua_list_info = each_manhua_list.split('=')
         base_manga_name=each_manhua_list_info[1]
@@ -29,10 +55,26 @@ if __name__ == '__main__':
         url = each_manhua_list_info[0]
         print(base_manga_name)
         print(url)
-        status_count=0
-        if base_manga_name=='从今天开始当城主':
-            status_count=11
-            print(status_count)
+
+        if not config.has_section(base_manga_name):  # 检查是否存在section
+            config.add_section(base_manga_name)
+            config.set(base_manga_name, "mangacount", '0')  #修改
+            config.write(open(base_config_file, "w"))
+        #获取当前第几个漫画
+        manhua_list_count_curr= int(config.get(base_manga_name, "mangacount"))
+        print(manhua_list_count_curr)
+
+
+
+
+        if(manhua_list_count < manhua_list_count_curr):
+            print(manhua_list_count)
+            continue
+        #保存配置
+        config.set(base_manga_name, "mangacount", str(manhua_list_count))  #修改
+        config.write(open(base_config_file, "w"))
+
+
 
         # base_folder ='F:/py3project/91hanman/'
         # #base_folder ='F:/py3workspace/python-spider/'
@@ -61,9 +103,14 @@ if __name__ == '__main__':
             #pdb.set_trace() # 运行到这里会自动暂停
             bf_2 = BeautifulSoup(str(each_url), 'lxml')
             print(bf_2.a.get('href'))
-            print(bf_2.a.span.span.get_text())
-            BaseCommon.loglist(base_log,bf_2.a.span.span.get_text() + '=' + base_url +bf_2.a.get('href'))
-            list_url.append(bf_2.a.span.span.get_text() + '=' + base_url +bf_2.a.get('href'))
+            #忽略特殊编码
+            chaptername=bf_2.a.span.span.get_text()
+            chaptername_1=chaptername.encode('GBK','ignore')
+            chaptername_2=chaptername_1.decode('GBK')
+            print(chaptername_2)
+            
+            BaseCommon.loglist(base_log,chaptername_2 + '=' + base_url +bf_2.a.get('href'))
+            list_url.append(chaptername_2 + '=' + base_url +bf_2.a.get('href'))
 
         #pdb.set_trace() # 运行到这里会自动暂停
 
@@ -75,12 +122,20 @@ if __name__ == '__main__':
         print(len(list_url))
 
         count=0
+        #获取当前章节
+        if not config.has_option(base_manga_name, "chaptercount"):
+            config.set(base_manga_name, "chaptercount", '0')  #修改
+            config.write(open(base_config_file, "w"))
+        manhua_chapter_count_curr= int(config.get(base_manga_name, "chaptercount"))
         for each_img in list_url:
             #pdb.set_trace()
             count +=1
-            if(count <= status_count):
+            if(count < manhua_chapter_count_curr):
                 print(count)
                 continue
+            config.set(base_manga_name, "chaptercount", str(count))  #修改
+            config.write(open(base_config_file, "w"))
+
             folder=base_folder+base_manga_name+'/'+str(count)
             #pdb.set_trace()
             print(os.path.exists(folder));
@@ -96,7 +151,7 @@ if __name__ == '__main__':
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
                 "Referer": "http://www.google.com/bot.html"
             }
-            img_req = requests.get(url = target_url,headers = headers,stream=True)
+            img_req = requests.get(url = target_url,headers = headers)
             img_req.encoding = 'utf-8'
             img_html = img_req.text
             img_bf_1 = BeautifulSoup(img_html, 'lxml')
