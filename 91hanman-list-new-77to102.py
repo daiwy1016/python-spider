@@ -26,24 +26,24 @@ if __name__ == '__main__':
     print(base_config_file)
 
     manhua_list=[]
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/67=最后的召唤师')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/70=妖怪通缉')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/71=蛊真人')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/75=妖道至尊')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/67=最后的召唤师')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/70=妖怪通缉')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/71=蛊真人')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/75=妖道至尊')
 
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/77=斗罗大陆4终极斗罗')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/425=英雄再临')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/556=铁姬钢兵')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/260=百层塔')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/265=尸兄')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/269=东邻西厢')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/270=玄界之门')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/287=传武')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/311=重生之都市修仙')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/328=朕也不想这样')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/331=武炼巅峰')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/332=王牌御史')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/407=驭灵师')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/77=斗罗大陆4终极斗罗')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/425=英雄再临')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/556=铁姬钢兵')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/260=百层塔')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/265=尸兄')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/269=东邻西厢')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/270=玄界之门')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/287=传武')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/311=重生之都市修仙')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/328=朕也不想这样')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/331=武炼巅峰')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/332=王牌御史')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/407=驭灵师')
     print(manhua_list)
     manhua_list_count=0
     #ConfigParser 初始化对象
@@ -98,9 +98,11 @@ if __name__ == '__main__':
                 "Referer": "http://www.google.com/bot.html"
         }
         #网页下载太长 需要加入参数 stream=True 来判断完整性下载
+        print("开始请求get 网页.."+url)
         req = requests.get(url = url,headers = headers,stream=True,verify=False)
         req.encoding = 'utf-8'
         html = req.text
+        print("开始请求成功")
         bf = BeautifulSoup(html, 'lxml')
         targets_url = bf.find_all(class_='detail-chapters-list-item')
         for each_url in targets_url:
