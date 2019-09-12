@@ -17,13 +17,13 @@ if __name__ == '__main__':
     base_url='https://lieqiman.com'
     #定义一组
     manhua_list=[]
-    manhua_list.append('daxueshiyou=/mh/xe/75.html')
-    manhua_list.append('chongfanquantan=/mh/xe/76.html')
-    manhua_list.append('jieyouzhentanshe=/mh/xe/77.html')
-    manhua_list.append('fanchaqinglv=/mh/xe/78.html')
-    manhua_list.append('geqiangsuoai=/mh/xe/79.html')
-    manhua_list.append('hongseyinji=/mh/xe/80.html')
-    manhua_list.append('jinpaizuoqujia=/mh/xe/81.html')
+    # manhua_list.append('daxueshiyou=/mh/xe/75.html')
+    # manhua_list.append('chongfanquantan=/mh/xe/76.html')
+    # manhua_list.append('jieyouzhentanshe=/mh/xe/77.html')
+    # manhua_list.append('fanchaqinglv=/mh/xe/78.html')
+    # manhua_list.append('geqiangsuoai=/mh/xe/79.html')
+    # manhua_list.append('hongseyinji=/mh/xe/80.html')
+    # manhua_list.append('jinpaizuoqujia=/mh/xe/81.html')
     manhua_list.append('maopaihuizhang=/mh/xe/82.html')
     manhua_list.append('yaotaodianzhang=/mh/xe/83.html')
     manhua_list.append('buliangfangdong=/mh/xe/84.html')
@@ -56,7 +56,7 @@ if __name__ == '__main__':
                 "Referer": "http://www.google.com/bot.html"
         }
         ssl._create_default_https_context = ssl._create_unverified_context
-        req = requests.get(url = url,headers = headers,verify=False)
+        req = requests.get(url = url,headers = headers,verify=False,stream=True)
         req.encoding = 'gbk'
         html = req.text
         #过滤空格
@@ -110,12 +110,21 @@ if __name__ == '__main__':
         print(len(list_url))
 
         count=0
+        status_count=0
+        if base_manga_name=='maopaihuizhang':
+            status_count=65
         for each_img in list_url:
             #pdb.set_trace()
-            # if(count <= 63):
-            #     print(count)
-            #     continue
+            img_info = each_img.split('=')
+            target_url = img_info[1]
+            filename = img_info[0]
+
+
             count +=1
+            if(count < status_count):
+                print(count)
+                continue
+
             folder=base_folder+base_manga_name+'/'+str(count)
             #pdb.set_trace()
             print(os.path.exists(folder));
@@ -123,15 +132,13 @@ if __name__ == '__main__':
                 if folder not in os.listdir():
                     os.makedirs(folder)
             #pdb.set_trace() # 运行到这里会自动暂停
-            img_info = each_img.split('=')
-            target_url = img_info[1]
-            filename = img_info[0]
+
             print('下载：' + filename)
             headers = {
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
                 "Referer": "http://www.google.com/bot.html"
             }
-            img_req = requests.get(url = target_url,headers = headers,verify=False)
+            img_req = requests.get(url = target_url,headers = headers,verify=False,stream=True)
             img_req.encoding = 'utf-8'
             img_html = img_req.text
             img_bf_1 = BeautifulSoup(img_html, 'lxml')

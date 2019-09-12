@@ -25,26 +25,30 @@ def download(url,filename):
         count = 1
         while count <= 5:
             try:
-                urlretrieve(url = url,filename = filename)                                                
+                urlretrieve(url = url,filename = filename)
                 break
             except socket.timeout:
                 err_info = 'Reloading for %d time'%count if count == 1 else 'Reloading for %d times'%count
                 print(err_info)
+                print('timeout-url:'+url)
                 count += 1
         if count > 5:
+            print('url:'+url)
             print("downloading picture fialed!")
     except Exception as e:
+        print('other-url1:'+url)
         print('捕捉到其他异常')
         logging.exception(e)
         count = 1
         while count <= 3:
             try:
-                urlretrieve(url = url,filename = filename)                                                
+                urlretrieve(url = url,filename = filename)
                 break
             except:
                 err_info = '捕捉到其他异常:Reloading for %d time'%count if count == 1 else '捕捉到其他异常:Reloading for %d times'%count
                 print(err_info)
                 count += 1
         if count > 3:
+            print('other-url2:'+url)
             print("downloading fialed!")
 

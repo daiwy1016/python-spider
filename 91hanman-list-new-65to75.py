@@ -15,7 +15,7 @@ if __name__ == '__main__':
     base_folder ='F:/py3workspace/python-spider/'#以/结束
     base_url='https://www.91hanman.com'
     manhua_list=[]
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/65=驱魔录')
+    #manhua_list.append('https://www.91hanman.com/book/webBookDetail/65=驱魔录')
     manhua_list.append('https://www.91hanman.com/book/webBookDetail/67=最后的召唤师')
     manhua_list.append('https://www.91hanman.com/book/webBookDetail/70=妖怪通缉')
     manhua_list.append('https://www.91hanman.com/book/webBookDetail/71=蛊真人')
@@ -118,4 +118,4 @@ if __name__ == '__main__':
 
 
         print('下载完成！')
-        os.system('shutdown -s -f -t 59')
+        #os.system('shutdown -s -f -t 59')
