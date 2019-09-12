@@ -144,13 +144,23 @@ if __name__ == '__main__':
         print(len(list_url))
 
         count=0
+        if not config.has_section(base_manga_name):  # 检查是否存在section
+            config.add_section(base_manga_name)
+            config.set(base_manga_name, "chaptercount", '0')  #修改
+            config.write(open(base_config_file, "w"))
+        #获取当前章节
+        if not config.has_option(base_manga_name, "chaptercount"):
+            config.set(base_manga_name, "chaptercount", '0')  #修改
+            config.write(open(base_config_file, "w"))
+        manhua_chapter_count_curr= int(config.get(base_manga_name, "chaptercount"))
         for each_img in list_url:
             #pdb.set_trace()
             count +=1
-            # if(count <= 63):
-            #     print(count)
-            #     continue
-
+            if(count < manhua_chapter_count_curr):
+                print(count)
+                continue
+            config.set(base_manga_name, "chaptercount", str(count))  #修改
+            config.write(open(base_config_file, "w"))
             folder=base_folder+base_manga_name+'/'+str(count)
             #pdb.set_trace()
             print(os.path.exists(folder));
