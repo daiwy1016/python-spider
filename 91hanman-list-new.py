@@ -121,5 +121,5 @@ if __name__ == '__main__':
                     time.sleep(1)
 
 
-        print('下载完成！')
-        os.system('shutdown -s -f -t 59')
+    print('下载完成！')
+    os.system('shutdown -s -f -t 59')
