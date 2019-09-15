@@ -25,22 +25,13 @@ if __name__ == '__main__':
     print(base_config_file)
     #定义一组
     manhua_list=[]
-    manhua_list.append('fenshounaxieshi=/mh/xe/120.html')
-    manhua_list.append('baihe=/mh/xe/121.html')
-
-    manhua_list.append('linghaoshouji=/mh/xe/123.html')
-    manhua_list.append('tongbuchuanyue=/mh/xe/124.html')
-
-    manhua_list.append('chashinv=/mh/xe/125.html')
-    manhua_list.append('huochexunmeng=/mh/xe/126.html')
-    manhua_list.append('quanzhikanhu=/mh/xe/127.html')
-    manhua_list.append('qianfucike=/mh/xe/128.html')
-    manhua_list.append('shaoshupaijinhua=/mh/xe/129.html')
-
-    manhua_list.append('zhengtuolaolong=/mh/xe/122.html')
-
-    #manhua_list.append('dianjishaonian=/mh/xe/118.html')
-    #manhua_list.append('zhengrongzhen=/mh/xe/119.html')
+    manhua_list.append('baiyihuangdao=/mh/xe/141.html')
+    #manhua_list.append('zhenjiajiedi=/mh/xe/142.html')
+    manhua_list.append('nvyuanjianwenlu=/mh/xe/143.html')
+    manhua_list.append('yinmandelianqing=/mh/xe/144.html')
+    manhua_list.append('mingxingdachu=/mh/xe/145.html')
+    manhua_list.append('dushixiejiang=/mh/xe/146.html')
+    #manhua_list.append('caokongzhe=/mh/xe/147.html')
 
 
 
