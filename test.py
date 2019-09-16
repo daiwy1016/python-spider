@@ -9,7 +9,6 @@
 
 from python_lib import BaseCommon
 import time
-
 from lxml import etree
 import requests
 from urllib import request
@@ -21,6 +20,10 @@ import os
 import configparser
 
 
+import win32api
+import win32con
+
+
 
 def loglist(file,data):
     f = open(file,'a')
@@ -28,6 +31,11 @@ def loglist(file,data):
     f.write(data+"\n")
     f.close()
 
+
+
+win32api.MessageBox(0,'1','2')
+
+exit()
 
 # print(sys.argv[0][sys.argv[0].rfind(os.sep) + 1:-3])
 # i=0

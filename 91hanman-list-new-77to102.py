@@ -26,24 +26,25 @@ if __name__ == '__main__':
     print(base_config_file)
 
     manhua_list=[]
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/67=最后的召唤师')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/70=妖怪通缉')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/71=蛊真人')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/75=妖道至尊')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/67=最后的召唤师')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/70=妖怪通缉')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/71=蛊真人')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/75=妖道至尊')
 
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/77=斗罗大陆4终极斗罗')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/425=英雄再临')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/556=铁姬钢兵')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/260=百层塔')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/265=尸兄')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/269=东邻西厢')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/270=玄界之门')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/287=传武')
-    manhua_list.append('https://www.91hanman.com/book/webBookDetail/311=重生之都市修仙')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/328=朕也不想这样')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/331=武炼巅峰')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/332=王牌御史')
-    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/407=驭灵师')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/77=斗罗大陆4终极斗罗')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/425=英雄再临')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/556=铁姬钢兵')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/260=百层塔')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/265=尸兄')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/269=东邻西厢')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/270=玄界之门')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/287=传武')
+    # manhua_list.append('https://www.91hanman.com/book/webBookDetail/311=重生之都市修仙')
+
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/328=朕也不想这样')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/331=武炼巅峰')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/332=王牌御史')
+    manhua_list.append('https://www.91hanman.com/book/webBookDetail/407=驭灵师')
     print(manhua_list)
     manhua_list_count=0
     #ConfigParser 初始化对象
@@ -131,10 +132,12 @@ if __name__ == '__main__':
         if not config.has_section(base_manga_name):  # 检查是否存在section
             config.add_section(base_manga_name)
             config.set(base_manga_name, "chaptercount", '0')  #修改
+            config.set(base_manga_name, "url", each_manhua_list_info[0])  #保存采集列表地址
             config.write(open(base_config_file, "w"))
         #获取当前章节
         if not config.has_option(base_manga_name, "chaptercount"):
             config.set(base_manga_name, "chaptercount", '0')  #修改
+            config.set(base_manga_name, "url", each_manhua_list_info[0])  #保存采集列表地址
             config.write(open(base_config_file, "w"))
         manhua_chapter_count_curr= int(config.get(base_manga_name, "chaptercount"))
         for each_img in list_url:
@@ -187,4 +190,4 @@ if __name__ == '__main__':
 
 
     print('下载完成！')
-    os.system('shutdown -s -f -t 59')
+    #os.system('shutdown -s -f -t 59')

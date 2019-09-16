@@ -25,19 +25,30 @@ if __name__ == '__main__':
     print(base_config_file)
     #定义一组
     manhua_list=[]
-    manhua_list.append('huanxiangyouxi=/mh/xe/109.html')
-    manhua_list.append('womensan=/mh/xe/110.html')
-    manhua_list.append('youlingdaoshi=/mh/xe/111.html')
-    manhua_list.append('linjudashu=/mh/xe/112.html')
-    manhua_list.append('shenmixiaodao=/mh/xe/113.html')
-    manhua_list.append('qimeilamingan=/mh/xe/114.html')
-    manhua_list.append('bujugaoshou=/mh/xe/115.html')
-    manhua_list.append('chaonengzuzhang=/mh/xe/116.html')
-    manhua_list.append('renshengbachongzou=/mh/xe/117.html')
-    manhua_list.append('dianjishaonian=/mh/xe/118.html')
-    manhua_list.append('zhengrongzhen=/mh/xe/119.html')
-
-
+    # HOME
+    # manhua_list.append('huanxiangyouxi=/mh/xe/109.html')
+    # manhua_list.append('womensan=/mh/xe/110.html')
+    # manhua_list.append('youlingdaoshi=/mh/xe/111.html')
+    # manhua_list.append('linjudashu=/mh/xe/112.html')
+    # manhua_list.append('shenmixiaodao=/mh/xe/113.html')
+    # manhua_list.append('qimeilamingan=/mh/xe/114.html')
+    # manhua_list.append('bujugaoshou=/mh/xe/115.html')
+    # manhua_list.append('chaonengzuzhang=/mh/xe/116.html')
+    # manhua_list.append('renshengbachongzou=/mh/xe/117.html')
+    # manhua_list.append('dianjishaonian=/mh/xe/118.html')
+    # manhua_list.append('zhengrongzhen=/mh/xe/119.html')
+    # COMPANY
+    manhua_list.append('jiatingjiaoshi=/mh/xe/97.html')
+    manhua_list.append('mimiriji=/mh/xe/98.html')
+    manhua_list.append('zhanjurensheng=/mh/xe/99.html')
+    manhua_list.append('guiazhangxuemei=/mh/xe/100.html')
+    manhua_list.append('renxingqianqi=/mh/xe/101.html')
+    manhua_list.append('zhouyenanyou=/mh/xe/102.html')
+    manhua_list.append('natianxiatian=/mh/xe/103.html')
+    manhua_list.append('xuanze=/mh/xe/105.html')
+    manhua_list.append('chulian=/mh/xe/106.html')
+    manhua_list.append('chuanyuemeishijia=/mh/xe/107.html')
+    manhua_list.append('wodejiemei=/mh/xe/108.html')
 
     print(manhua_list)
     print(len(manhua_list))
@@ -150,10 +161,12 @@ if __name__ == '__main__':
         if not config.has_section(base_manga_name):  # 检查是否存在section
             config.add_section(base_manga_name)
             config.set(base_manga_name, "chaptercount", '0')  #修改
+            config.set(base_manga_name, "url", each_manhua_list_info[1])  #保存采集列表地址
             config.write(open(base_config_file, "w"))
         #获取当前章节
         if not config.has_option(base_manga_name, "chaptercount"):
             config.set(base_manga_name, "chaptercount", '0')  #修改
+            config.set(base_manga_name, "url", each_manhua_list_info[1])  #保存采集列表地址
             config.write(open(base_config_file, "w"))
         manhua_chapter_count_curr= int(config.get(base_manga_name, "chaptercount"))
         for each_img in list_url:
@@ -205,4 +218,4 @@ if __name__ == '__main__':
                 else:
                     print('图片已存在跳过'+str(i))
     print('下载完成！')
-    os.system('shutdown -s -f -t 59')
+    #os.system('shutdown -s -f -t 59')
