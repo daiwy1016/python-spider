@@ -94,9 +94,13 @@ if __name__ == '__main__':
         #     url = 'http://www.shuaia.net/index_%d.html' % num
         #TODO:
         #url = base_url+'/book/webBookDetail/60'
+        # headers = {
+        #         "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+        #         "Referer": "http://www.google.com/bot.html"
+        # }
         headers = {
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
-                "Referer": "http://www.google.com/bot.html"
+                "Referer": base_url
         }
         #网页下载太长 需要加入参数 stream=True 来判断完整性下载
         print("开始请求get 网页.."+url)
@@ -160,10 +164,20 @@ if __name__ == '__main__':
             target_url = img_info[1]
             filename = img_info[0]
             print(str(count)+'下载：' + filename)
+            if target_url == '':
+                referer_url=url
+            else:
+                referer_url=target_url
             headers = {
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
-                "Referer": "http://www.google.com/bot.html"
+                "Referer": referer_url
             }
+            print(headers)
+            # headers = {
+            #         "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+            #         "Referer": "http://www.google.com/bot.html"
+            # }
+            print("开始请求get page.."+target_url)
             img_req = requests.get(url = target_url,headers = headers,stream=True,verify=False)
             img_req.encoding = 'utf-8'
             img_html = img_req.text
@@ -171,6 +185,7 @@ if __name__ == '__main__':
             img_url = img_bf_1.find_all('div', class_='page-img-list')
             img_bf_2 = BeautifulSoup(str(img_url), 'lxml')#str 返回一个字符串 把对象转换字符串
             img_bf_3 =img_bf_2.find_all('div', class_='nav-chapter-new')
+            print("开始请求page成功")
 
 
             #img_bf_3 =img_bf_2.find_all('img')
