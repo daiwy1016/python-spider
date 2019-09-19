@@ -12,8 +12,8 @@ import pdb
 import socket
 import logging
 
-def loglist(file,data):
-    f = open(file,'a')
+def loglist(file,data,mode='a'):
+    f = open(file,mode)
     f.write(data+"\n")
     f.close()
 def download(url,filename):
