@@ -26,12 +26,12 @@ if __name__ == '__main__':
     #定义一组
     manhua_list=[]
     # HOME
-    manhua_list.append('老师好久不见=/book/2')
-    manhua_list.append('超级女孩=/book/3')
-    manhua_list.append('超级作弊器=/book/6')
-    manhua_list.append('双面保姆=/book/5')
-    manhua_list.append('PainKiller正义的背后=/book/7')
-    manhua_list.append('年轻的味道=/book/8')
+    manhua_list.append('主妇危机=/book/11')
+    manhua_list.append('他的女人=/book/12')
+    manhua_list.append('郑女婿=/book/13')
+    manhua_list.append('女神狩猎=/book/14')
+    manhua_list.append('超级吸引力=/book/15')
+    manhua_list.append('邻居=/book/16')
     # COMPANY
 
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         #url = base_url+'/mh/xe/20.html'
         headers = {
                 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-                "Referer": "http://www.google.com/bot.html"
+                "Referer": base_url
         }
         ssl._create_default_https_context = ssl._create_unverified_context
         print("请求：url："+url)
@@ -225,4 +225,4 @@ if __name__ == '__main__':
                     print('图片已存在跳过'+str(i))
                 #pdb.set_trace() # 运行到这里会自动暂停
     print('下载完成！')
-    os.system('shutdown -s -f -t 59')
+    #os.system('shutdown -s -f -t 59')
