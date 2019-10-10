@@ -13,6 +13,15 @@ import pdb
 import socket
 import logging
 
+def logginconfig(){
+    logging.basicConfig(level=logging.DEBUG,#控制台打印的日志级别
+                    filename='new.log',
+                    filemode='a',##模式，有w和a，w就是写模式，每次都会重新写日志，覆盖之前的日志
+                    #a是追加模式，默认如果不写的话，就是追加模式
+                    format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'#日志格式
+                    )
+}
+
 def loglist(file,data,mode='a'):
     f = open(file,mode)
     f.write(data+"\n")
@@ -91,10 +100,10 @@ def bianma(results):
         out = re.sub(pattern, li, s)
         outs.append(out)
     # 对列表进行去重并且按照原来的次序排列
-    outs_cp = sorted(set(outs), key=outs.index) 
+    outs_cp = sorted(set(outs), key=outs.index)
     return outs_cp
 # 获取抓取的图片源网址
-def crawl(url, header):    
+def crawl(url, header):
     res = requests.get(url, headers=header)
     # 防止被反爬，打开后关闭
     res.close()
