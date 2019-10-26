@@ -17,7 +17,7 @@ if __name__ == '__main__':
     #base_folder ='F:/py3project/91hanman/'#以/结束 home
     #base_folder ='F:/py3workspace/python-spider/'#以/结束 company
     base_folder = os.getcwd()+"\\"
-    base_url='http://xxmh.cc'
+    base_url='http://www.xxmh.cc'
     base_config_file=base_folder+'\\'+sys.argv[0][sys.argv[0].rfind(os.sep) + 1:-3]+'.ini'
     #判断配置文件是否存在 不存在建立
     if os.path.exists(base_config_file) ==  False:
@@ -28,10 +28,14 @@ if __name__ == '__main__':
     # HOME
     manhua_list.append('主妇危机=/book/11')
     manhua_list.append('他的女人=/book/12')
-    manhua_list.append('郑女婿=/book/13')
-    manhua_list.append('女神狩猎=/book/14')
-    manhua_list.append('超级吸引力=/book/15')
-    manhua_list.append('邻居=/book/16')
+    manhua_list.append('xxmh-郑女婿=/book/13')
+    manhua_list.append('xxmh-女神狩猎=/book/14')
+    manhua_list.append('xxmh-超级吸引力=/book/15')
+    manhua_list.append('xxmh-邻居=/book/16')
+
+    manhua_list.append('xxmh-猎物=/book/25')
+    manhua_list.append('xxmh-阿修罗=/book/26')
+    manhua_list.append('xxmh-欺诈交易=/book/27')
     # COMPANY
 
 
@@ -100,6 +104,7 @@ if __name__ == '__main__':
         #[s.extract() for s in about_2("strong")]#去除指定标签
         #pdb.set_trace()
         about_3 = about_2.find('p',class_="content")
+        #print(about_3)
         #pdb.set_trace()
         #忽略特殊编码
         jianjie=about_3.get_text()
