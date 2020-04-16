@@ -21,11 +21,9 @@ if __name__ == '__main__':
     #base_folder ='F:/py3workspace/python-spider/'#以/结束 company
     base_folder = os.getcwd()+"\\"
     base_url='https://www.manhuaw.cc'
-    base_config_file=base_folder+'\\'+sys.argv[0][sys.argv[0].rfind(os.sep) + 1:-3]+'.ini'
+    #base_config_file=base_folder+'\\'+sys.argv[0][sys.argv[0].rfind(os.sep) + 1:-3]+'.ini'
     #判断配置文件是否存在 不存在建立
-    if os.path.exists(base_config_file) ==  False:
-        BaseCommon.loglist(base_config_file,"")
-    print(base_config_file)
+
     #定义一组
     manhua_list=[]
     manhua_vip_list = []
@@ -40,9 +38,15 @@ if __name__ == '__main__':
     manhua_vip_list.append('1-vip-9=https://www.manhuaw.cc/index/api/getpage/tp/1-vip-9')
     manhua_vip_list.append('1-vip-10=https://www.manhuaw.cc/index/api/getpage/tp/1-vip-10')
 
-
+    j=0
     for each_manhua_vip_list in manhua_vip_list:
+
         each_manhua_vip_list_info = each_manhua_vip_list.split('=')
+        j +=1
+        base_config_file=base_folder+'\\'+sys.argv[0][sys.argv[0].rfind(os.sep) + 1:-3]+str(j)+'.ini'
+        if os.path.exists(base_config_file) ==  False:
+            BaseCommon.loglist(base_config_file,"")
+            print(base_config_file)
         #保存以便读取
         if os.path.exists(base_folder + each_manhua_vip_list_info[0] + '.txt') ==  False:
             #获取列表
@@ -75,7 +79,7 @@ if __name__ == '__main__':
                 f.close()
 
 
-        print(manhua_list)
+        #print(manhua_list)
         print(len(manhua_list))
         manhua_list_count=0
         #ConfigParser 初始化对象
@@ -88,8 +92,13 @@ if __name__ == '__main__':
             list_url = []
             #each_manhua_list_info = each_manhua_list.split('=')
             base_manga_name= each_manhua_list['title']
-             #过滤掉非法字符 ：不能创建文件夹错误
+            #去掉不能识别编码 再过滤掉过滤掉非法字符 ：不能创建文件夹错误
+            base_manga_name=base_manga_name.encode('GBK','ignore')
+            base_manga_name=base_manga_name.decode('GBK')
             base_manga_name=base_manga_name.replace(':', '')
+            #今天,加班好咩?
+            base_manga_name=base_manga_name.replace(',', '')
+            base_manga_name=base_manga_name.replace('?', '')
 
             url = base_url+"/index/book/index/id/"+each_manhua_list['id']
             print(base_manga_name)
@@ -114,13 +123,20 @@ if __name__ == '__main__':
             # url = base_url+'/mh/xe/20.html'
             if base_manga_name not in os.listdir():
                  os.makedirs(base_manga_name)
+
             base_manhua_folder = base_folder+base_manga_name +"\\"
             base_log=base_folder+base_manga_name +"\\"+base_manga_name+".txt"
-            BaseCommon.loglist(base_folder + base_manga_name +"\\"+base_manga_name+"_about.txt",each_manhua_list['title'])
+
+            each_manhua_list_title=each_manhua_list['title'].encode('GBK','ignore')
+            each_manhua_list_title=each_manhua_list_title.decode('GBK')
+            each_manhua_list_desc=each_manhua_list['desc'].encode('GBK','ignore')
+            each_manhua_list_desc=each_manhua_list_desc.decode('GBK')
+
+            BaseCommon.loglist(base_folder + base_manga_name +"\\"+base_manga_name+"_about.txt",each_manhua_list_title)
             BaseCommon.loglist(base_folder + base_manga_name +"\\"+base_manga_name+"_about.txt",'题材:'+each_manhua_list['ticai'])
             BaseCommon.loglist(base_folder + base_manga_name +"\\"+base_manga_name+"_about.txt",'类型:'+each_manhua_list['keyword'])
             BaseCommon.loglist(base_folder + base_manga_name +"\\"+base_manga_name+"_about.txt",'作者:'+each_manhua_list['auther'])
-            BaseCommon.loglist(base_folder + base_manga_name +"\\"+base_manga_name+"_about.txt",'简介:'+each_manhua_list['desc'])
+            BaseCommon.loglist(base_folder + base_manga_name +"\\"+base_manga_name+"_about.txt",'简介:'+each_manhua_list_desc)
 
             # if num == 1:
             #     url = 'view-source:https://www.91hanman.com/book/webBookDetail/69'
@@ -164,11 +180,12 @@ if __name__ == '__main__':
             #https://www.manhuaw.cc/index/api/isread/id/1175
             #https://www.manhuaw.cc/index/book/index/id/1175
             #https://www.manhuaw.cc/index/api/chapter_list/tp/1175-1-1-72
-            #https://www.manhuaw.cc/index/api/chapter_list/tp/1175-1-1-10
+            #https://www.manhuaw.cc/index/api/chapter_list/tp/1383-1-1-10
 
             if os.path.exists(base_manhua_folder+base_manga_name+"_json.txt") ==  False:
 
                 reqUrl = base_url + "/index/api/chapter_list/tp/" + each_manhua_list['id'] + "-1-1-10"
+                print(reqUrl)
                 headers = {
                         "User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
                         "Referer": base_url
@@ -180,13 +197,19 @@ if __name__ == '__main__':
                 jsonobj = json.loads(response_json)
                 # 从Json对象获取想要的内容
                 totalRow = jsonobj['result']['totalRow']
+                print("totalRow:"+totalRow)
                 response_list.close()
                         #=======================获取章节列表地址===============
                 #https://www.manhuaw.cc/index/api/isread/id/1175
                 #https://www.manhuaw.cc/index/book/index/id/1175
                 #https://www.manhuaw.cc/index/api/chapter_list/tp/1175-1-1-72
                 #https://www.manhuaw.cc/index/api/chapter_list/tp/1175-1-1-10
+                if totalRow == '0':
+                    print("获取到totalRow为0，跳过")
+                    continue
+
                 reqListUrl = base_url + "/index/api/chapter_list/tp/" + each_manhua_list['id'] + "-1-1-" + totalRow
+                print(reqListUrl)
                 headers = {
                         "User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
                         "Referer": reqUrl
@@ -203,21 +226,30 @@ if __name__ == '__main__':
                 response_list.close()
                 #=======================获取章节列表===============
                 for each_url in totalRow:
-                    BaseCommon.loglist(base_log,each_url['title'] + '=' +each_url['imagelist'])
-                    list_url.append(each_url['title'] + '=' + base_url +"/index/book/capter/id/"+each_url['id'])
+                    each_url_title=each_url['title'].encode('GBK','ignore')
+                    each_url_title=each_url_title.decode('GBK')
+                    BaseCommon.loglist(base_log,each_url_title + '=' +each_url['imagelist'])
+                    list_url.append(each_url_title + '=' + base_url +"/index/book/capter/id/"+each_url['id'])
             else:
                 print('漫画列表 '+base_manga_name+' 已有，跳过服务器获取');
                 with open(base_manhua_folder+base_manga_name+"_json.txt", "r") as f:  # 打开文件
                     data = f.read()  # 读取文件
                     # 将响应内容转换为Json对象
                     jsonobj = json.loads(data)
+                    totalRow = jsonobj['result']['totalRow']
                     # 从Json对象获取想要的内容
+                    if totalRow == '0':
+                        print("本地json获取到totalRow为0，跳过")
+                        continue
                     totalRow = jsonobj['result']['list']
+
                     #response_list.close()
                     #=======================获取章节列表===============
                     for each_url in totalRow:
-                        BaseCommon.loglist(base_log,each_url['title'] + '=' +each_url['imagelist'])
-                        list_url.append(each_url['title'] + '=' + base_url +"/index/book/capter/id/"+each_url['id'])
+                        each_url_title=each_url['title'].encode('GBK','ignore')
+                        each_url_title=each_url_title.decode('GBK')
+                        BaseCommon.loglist(base_log,each_url_title + '=' +each_url['imagelist'])
+                        list_url.append(each_url_title + '=' + base_url +"/index/book/capter/id/"+each_url['id'])
                     f.close()
 
 
@@ -265,9 +297,9 @@ if __name__ == '__main__':
                 #     list_url.append(each.img.get('alt') + '=' + each.get('href'))
             #=======================JSON获取章节列表===============
 
+
             list_url = totalRow;
             print('连接采集完成')
-            print(list_url)
             print(len(list_url))
             count=0
             if not config.has_section(base_manga_name):  # 检查是否存在section
@@ -313,7 +345,9 @@ if __name__ == '__main__':
                         os.makedirs(folder)
                 #pdb.set_trace() # 运行到这里会自动暂停
                 #img_info = each_img.split('=')
-                filename = each_img['title']
+                each_img_title=each_img['title'].encode('GBK','ignore')
+                each_img_title=each_img_title.decode('GBK')
+                filename = each_img_title
                 print('下载：' + filename)
 
                 # target_url = img_info[1]
@@ -339,6 +373,7 @@ if __name__ == '__main__':
                 img_bf_3 = each_img['imagelist'].split(',')
 
                 print("本章节图片数量："+str(len(img_bf_3)))
+
                 #img_bf_3 =img_bf_2.find_all('img')
                 # 防止被反爬，打开后关闭
                 #img_req.close()
